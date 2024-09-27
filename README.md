@@ -1,9 +1,30 @@
-## Ensemble d'études de cas
+# Ensemble d'études de cas
 
-Ce repo personnel à pour objectif de classer différents petits projets d'étude de cas plus-ou-moins développés, visant à mettre en application des notions de data science et développer des concepts et des problématiques métiers pour contribuer à ma culture générale et ma veille technologique.
+Ce repo personnel à pour objectif de classer différents petits projets d'étude de cas plus-ou-moins développés, visant à mettre en application des notions de data science en Python et développer des concepts et des problématiques métiers pour contribuer à ma culture générale et ma veille technologique.
 Chaque subrepo concerne une étude de cas avec toujours à minima une petite présentation, le jeu de données utilisé et sa source, les scripts/notebooks créés et les outputs.
 
-### 🧬 Séquençage d'ADN à l'aide du Machine Learning
+## Utilisation du dépôt
+
+Pour installer les dépendances nécessaires à ce projet, vous pouvez utiliser le fichier `requirements.txt` spécifique, présent dans chaque subrepo. Ce fichier contient une liste de toutes les bibliothèques Python requises pour exécuter le projet.
+
+Dans un premier temps, clonez le dépôt :
+```shell
+git clone https://github.com/a-langlais/case_studies.git
+```
+
+Puis créez un environnement virtuel :
+```shel
+python -m venv env
+```
+
+Enfin, installez les dépendances :
+```shell
+pip install -r requirements.txt
+```
+
+Cette commande lira le fichier requirements.txt et installera toutes les bibliothèques listées dans votre environnement Python.
+
+## 🧬 Séquençage d'ADN à l'aide du Machine Learning
 
 En génomique, le traitement des séquences d'ADN comme un langage est appelé "comptage de k-mers", cela consiste à compter les occurences de chaque k-mer possible. Bien qu'il existe des outils spécialisés en bioinformatique pour cette tâche, les outils de traitement du langage naturel (NLP) en Python facilitent beaucoup ce processus. On peut voir l'ADN comme le langage de programmation des êtres vivants, qui encode des instructions et des fonctions pour les molécules présentes dans toutes les formes de vie.
 La longueur des mots et la quantité de chevauchement doivent être déterminées empiriquement mais le Machine Learning peut justement permettre d'apporter une aide considérable dans la compréhension de ce langage et dans la prédiction des chaines pour des contextes données.
@@ -15,9 +36,9 @@ Les résultats montrent une excellente performance du modèle sur les données d
 
 Cette étude de cas est intéressante car elle permet de mettre en application la décomposition d'une chaine de caractères en vecteurs de longueur uniforme pour une utilisation dans des algorithmes de classification ou de régression.
 
-### 🔮 Prédiction des assurances
+## 🔮 Prédiction des assurances
 
-### ❌ Prédiciton du churn client
+## ❌ Prédiciton du churn client
 
 Le churn client est une problématique majeure pour les entreprises qui souhaitent maintenir leur clientèle et éviter les départs massifs. Ce projet vise à prédire le churn en utilisant les données clients à travers des techniques de machine learning, permettant aux entreprises d’identifier à l’avance les clients susceptibles de partir.
 Le fichier de données utilisé contient des informations variées sur les abonnements, les services consommés, et les profils démographiques des clients. L'objectif final est de construire un modèle capable de prédire si un client quittera l'entreprise ou non.
@@ -29,7 +50,7 @@ Les résultats montrent une précision d'environ 82%, ce qui est un bon indicate
 
 Cette étude de cas permet de suivre une ligne rouge classique en data tout en mettant en lumière la comparaison de plusieurs modèles face à une problématique métier, montrant que plusieurs solutions peuvent être possibles.
 
-### 🪢 Théorie des graphs sur les mots-clés de StackOverflow
+## 🪢 Théorie des graphs sur les mots-clés de StackOverflow
 
 L'objectif de ce petit notebook est de créer une représentation visuelle d'un réseau représentant les groupes associés par les mots clés les plus utilisés sur le site StackOverflow.
 
@@ -39,4 +60,4 @@ Les couleurs des nœuds sont définies par une palette prédéfinie, où chaque 
 
 Ce graphique est un outil puissant pour analyser les relations et les structures au sein du réseau, offrant une vue d'ensemble claire et informative des interactions entre les différents éléments.
 
-### ⏲️ Séries temporelles et prédictions
+## ⏲️ Séries temporelles et prédictions

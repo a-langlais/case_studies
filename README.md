@@ -36,8 +36,6 @@ Les résultats montrent une excellente performance du modèle sur les données d
 
 Cette étude de cas est intéressante car elle permet de mettre en application la décomposition d'une chaine de caractères en vecteurs de longueur uniforme pour une utilisation dans des algorithmes de classification ou de régression.
 
-## 🔮 Prédiction des assurances
-
 ## ❌ Prédiciton du churn client
 
 Le churn client est une problématique majeure pour les entreprises qui souhaitent maintenir leur clientèle et éviter les départs massifs. Ce projet vise à prédire le churn en utilisant les données clients à travers des techniques de machine learning, permettant aux entreprises d’identifier à l’avance les clients susceptibles de partir.
@@ -61,3 +59,11 @@ Les couleurs des nœuds sont définies par une palette prédéfinie, où chaque 
 Ce graphique est un outil puissant pour analyser les relations et les structures au sein du réseau, offrant une vue d'ensemble claire et informative des interactions entre les différents éléments.
 
 ## ⏲️ Séries temporelles et prédictions
+
+Ce projet vise à analyser et prévoir les ventes de meubles à partir d'un jeu de données de ventes de supermarché. Le projet commence par le chargement des données à partir d'un fichier Excel et la sélection des enregistrements pertinents pour la catégorie "Furniture". Les colonnes non pertinentes sont retirées, et les données sont regroupées par date de commande pour obtenir les ventes totales de meubles par jour. Les données sont ensuite rééchantillonnées mensuellement pour créer une série temporelle des ventes de meubles.
+
+La série temporelle est visualisée pour observer les tendances et les variations saisonnières. Une décomposition saisonnière additive est effectuée pour séparer la série temporelle en ses composantes de tendance, de saisonnalité et de résidus à l'aide de `sm.tsa.seasonal_decompose()`. Cette décomposition permet de mieux comprendre les dynamiques sous-jacentes des ventes de meubles. Ensuite, une recherche de la meilleure combinaison est effectuée pour trouver les meilleurs paramètres pour un modèle SARIMA (Seasonal AutoRegressive Integrated Moving Average) en testant différentes combinaisons de paramètres saisonniers et non saisonniers. Le modèle avec le meilleur critère AIC (Akaike Information Criterion) est sélectionné pour les prédictions futures.
+
+Le modèle SARIMA (`sm.tsa.statespace.SARIMAX()`) sélectionné est utilisé pour générer des prédictions et des intervalles de confiance pour les ventes futures de meubles. Les prédictions sont visualisées sur la série temporelle observée pour évaluer la performance du modèle. La Mean Squared Error (MSE) et la Root Mean Squared Error (RMSE) sont calculées pour quantifier l'erreur de prédiction. Enfin, des prédictions à long terme sont générées et visualisées avec leurs intervalles de confiance pour fournir une vue d'ensemble des tendances futures des ventes de meubles.
+
+Ce projet démontre l'utilisation de techniques avancées de modélisation de séries temporelles pour analyser et prévoir des ventes de meubles.

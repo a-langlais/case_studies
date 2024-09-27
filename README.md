@@ -29,6 +29,14 @@ Les résultats montrent une précision d'environ 82%, ce qui est un bon indicate
 
 Cette étude de cas permet de suivre une ligne rouge classique en data tout en mettant en lumière la comparaison de plusieurs modèles face à une problématique métier, montrant que plusieurs solutions peuvent être possibles.
 
-### 🪢 Théorie des graphs sur les tags de StackOverflow
+### 🪢 Théorie des graphs sur les mots-clés de StackOverflow
+
+L'objectif de ce petit notebook est de créer une représentation visuelle d'un réseau représentant les groupes associés par les mots clés les plus utilisés sur le site StackOverflow.
+
+Le graphique est généré en utilisant la bibliothèque `networkx` en Python, avec une disposition de type `spring_layout` qui optimise la position des nœuds pour minimiser les chevauchements et maximiser la lisibilité. Le paramètre k de cette disposition a été ajusté pour augmenter l'espace entre les nœuds, facilitant ainsi la visualisation des connexions et des groupes.
+
+Les couleurs des nœuds sont définies par une palette prédéfinie, où chaque groupe est représenté par une couleur distincte. Les tailles des nœuds sont proportionnelles à leur `nodesize`, permettant de visualiser rapidement les nœuds les plus importants ou influents dans le réseau.
+
+Ce graphique est un outil puissant pour analyser les relations et les structures au sein du réseau, offrant une vue d'ensemble claire et informative des interactions entre les différents éléments.
 
 ### ⏲️ Séries temporelles et prédictions

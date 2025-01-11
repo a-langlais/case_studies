@@ -24,6 +24,14 @@ pip install -r requirements.txt
 
 Cette commande lira le fichier requirements.txt et installera toutes les bibliothèques listées dans votre environnement Python.
 
+## Études de cas
+
+- [🧬 Séquençage d'ADN à l'aide du Machine Learning](#-séquençage-dadn-à-laide-du-machine-learning)  
+- [❌ Prédiction du churn client](#-prédiction-du-churn-client)  
+- [🪢 Théorie des graphs sur les mots-clés de StackOverflow](#-théorie-des-graphs-sur-les-mots-clés-de-stackoverflow)  
+- [⏲️ Séries temporelles et prédictions](#️-séries-temporelles-et-prédictions)
+
+
 ## 🧬 Séquençage d'ADN à l'aide du Machine Learning
 
 En génomique, le traitement des séquences d'ADN comme un langage est appelé "comptage de k-mers", cela consiste à compter les occurences de chaque k-mer possible. Bien qu'il existe des outils spécialisés en bioinformatique pour cette tâche, les outils de traitement du langage naturel (NLP) en Python facilitent beaucoup ce processus. On peut voir l'ADN comme le langage de programmation des êtres vivants, qui encode des instructions et des fonctions pour les molécules présentes dans toutes les formes de vie.

@@ -44,7 +44,7 @@ Les résultats montrent une excellente performance du modèle sur les données d
 
 Cette étude de cas est intéressante car elle permet de mettre en application la décomposition d'une chaine de caractères en vecteurs de longueur uniforme pour une utilisation dans des algorithmes de classification ou de régression.
 
-## ❌ Prédiciton du churn client
+## ❌ Prédiction du churn client
 
 Le churn client est une problématique majeure pour les entreprises qui souhaitent maintenir leur clientèle et éviter les départs massifs. Ce projet vise à prédire le churn en utilisant les données clients à travers des techniques de machine learning, permettant aux entreprises d’identifier à l’avance les clients susceptibles de partir.
 Le fichier de données utilisé contient des informations variées sur les abonnements, les services consommés, et les profils démographiques des clients. L'objectif final est de construire un modèle capable de prédire si un client quittera l'entreprise ou non.

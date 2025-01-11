@@ -1,6 +1,45 @@
+"""
+===============================================================================
+Script : CAF_data_simulation.py
+
+Description :
+Ce script génère un jeu de données fictif pour simuler des allocataires de la 
+CAF (Caisse d'Allocations Familiales). Il s'appuie sur la bibliothèque Faker 
+pour produire des données réalistes et inclut des probabilités personnalisées 
+pour des allocations, des situations familiales, des statuts professionnels, 
+et des niveaux de revenus.
+
+Fonctionnalités principales :
+- Génération de données démographiques fictives (nom, prénom, âge, région, etc.).
+- Simulation de compositions familiales (nombre d'adultes, enfants).
+- Attribution probabiliste des niveaux de revenus, niveaux d'études, et catégories sociales.
+- Calcul cohérent des droits à diverses allocations en fonction des conditions d'éligibilité.
+
+Utilisation :
+1. Configurez les paramètres (nombre d'allocataires à générer, probabilités, etc.).
+2. Exécutez le script pour générer un fichier CSV contenant les données simulées.
+3. Les résultats sont sauvegardés dans le fichier 'allocataires_caf_synthetiques.csv'.
+
+Dépendances :
+- Python >= 3.7
+- Bibliothèques : pandas, faker, random, datetime
+
+Notes :
+- Le script est paramétré pour générer des données uniquement pour la région 
+  Île-de-France, mais il peut être étendu pour inclure d'autres régions
+- Les conditions d'attribution des allocations intègrent des règles de cohérence
+  basées sur l'âge, le niveau de revenu, et d'autres critères.
+
+Exemple de commande pour exécuter le script :
+    python CAF_data_simulation.py
+
+===============================================================================
+"""
+
 import pandas as pd
 import random
 from faker import Faker
+from datetime import datetime
 
 # Initialisation du générateur de données fictives
 faker = Faker("fr_FR")
@@ -21,11 +60,22 @@ allocations = {
     "Allocation de solidarité spécifique (ASI)": 0.015
 }
 
-# Liste des situations familiales
-situations_familiales = ["Célibataire", "Marié", "Divorcé", "Veuf", "Concubinage"]
+# Liste des statuts professionnels et leurs probabilités
+statuts_professionnels = {
+    "Actif": 0.424,
+    "Chômeur": 0.214,
+    "Retraité": 0.170,
+    "Étudiant": 0.192
+}
 
-# Liste des statuts professionnels
-statuts_professionnels = ["Actif", "Chômeur", "Retraité", "Étudiant"]
+# Liste des situations familiales et leurs probabilités
+situations_familiales = {
+    "Célibataire": 0.267,
+    "Marié": 0.401,
+    "Divorcé": 0.110,
+    "Veuf": 0.087,
+    "Concubinage": 0.135
+}
 
 # Dictionnaire des régions et de leurs départements
 # Ici, on conserve que l'Ile-de-France pour limiter le nombre de données
@@ -52,89 +102,6 @@ regions_departements = {
 
 # Probabilités d'attribution des niveaux de revenus (distribution réaliste)
 niveaux_revenus = ["Très faible", "Faible", "Moyen", "Élevé", "Très élevé"]
-probabilites_revenus = {
-    "Très faible": 0.10,
-    "Faible": 0.40,
-    "Moyen": 0.40,
-    "Élevé": 0.08,
-    "Très élevé": 0.02,
-}
-
-# Catégories sociales basées sur le niveau de revenu
-def assigner_categorie_sociale(niveau_revenu, statut_professionnel):
-    if niveau_revenu == "Très faible":
-        if statut_professionnel in ["Chômeur", "Retraité"]:
-            return "Catégorie 4 (Chômeur/Retraité)"
-        return "Catégorie 3 (Ouvrier)"
-    elif niveau_revenu == "Faible":
-        return "Catégorie 3 (Ouvrier)"
-    elif niveau_revenu == "Moyen":
-        return "Catégorie 2 (Employé/Technicien)"
-    elif niveau_revenu == "Élevé":
-        return "Catégorie 1 (Cadre)"
-    else:
-        return "Catégorie 1 (Cadre)"
-
-# Liste des niveaux d'études et leurs probabilités de revenus associés pour plus de réalisme
-niveaux_etudes = ["Sans diplôme", "Brevet", "Baccalauréat", "BTS/DUT", "Licence", "Master", "Doctorat"]
-
-def ajuster_probabilites_revenus_par_etudes(niveau_etudes):
-    if niveau_etudes == "Sans diplôme":
-        return {
-            "Très faible": 0.40,
-            "Faible": 0.45,
-            "Moyen": 0.10,
-            "Élevé": 0.04,
-            "Très élevé": 0.01,
-        }
-    elif niveau_etudes == "Brevet":
-        return {
-            "Très faible": 0.30,
-            "Faible": 0.50,
-            "Moyen": 0.15,
-            "Élevé": 0.04,
-            "Très élevé": 0.01,
-        }
-    elif niveau_etudes == "Baccalauréat":
-        return {
-            "Très faible": 0.20,
-            "Faible": 0.40,
-            "Moyen": 0.30,
-            "Élevé": 0.08,
-            "Très élevé": 0.02,
-        }
-    elif niveau_etudes == "BTS/DUT":
-        return {
-            "Très faible": 0.10,
-            "Faible": 0.30,
-            "Moyen": 0.40,
-            "Élevé": 0.15,
-            "Très élevé": 0.05,
-        }
-    elif niveau_etudes == "Licence":
-        return {
-            "Très faible": 0.05,
-            "Faible": 0.20,
-            "Moyen": 0.40,
-            "Élevé": 0.30,
-            "Très élevé": 0.05,
-        }
-    elif niveau_etudes == "Master":
-        return {
-            "Très faible": 0.02,
-            "Faible": 0.10,
-            "Moyen": 0.30,
-            "Élevé": 0.45,
-            "Très élevé": 0.13,
-        }
-    else:  # Doctorat
-        return {
-            "Très faible": 0.01,
-            "Faible": 0.25,
-            "Moyen": 0.40,
-            "Élevé": 0.30,
-            "Très élevé": 0.04,
-        }
 
 # Fonction pour générer une composition familiale
 def generer_composition_familiale():
@@ -146,6 +113,28 @@ def generer_composition_familiale():
         "total": adultes + enfants,
     }
 
+# Règles de cohérence entre la date de naissance, le statut professionnel et la situation familiale
+def determiner_statut_et_situation(date_naissance):
+    age = (pd.Timestamp.now() - pd.Timestamp(date_naissance)).days // 365
+    if age < 25:
+        statut = "Étudiant" if random.random() < 0.7 else random.choices(
+            list(statuts_professionnels.keys()), weights=list(statuts_professionnels.values()), k=1
+        )[0]
+        situation = "Célibataire" if random.random() < 0.8 else random.choices(
+            list(situations_familiales.keys()), weights=list(situations_familiales.values()), k=1
+        )[0]
+    elif age < 65:
+        statut = random.choices(
+            list(statuts_professionnels.keys()), weights=list(statuts_professionnels.values()), k=1
+        )[0]
+        situation = random.choices(
+            list(situations_familiales.keys()), weights=list(situations_familiales.values()), k=1
+        )[0]
+    else:
+        statut = "Retraité"
+        situation = "Veuf" if random.random() < 0.3 else "Marié"
+    return statut, situation
+
 # Création des données
 donnees = []
 for _ in range(N):
@@ -153,49 +142,77 @@ for _ in range(N):
     region = random.choice(list(regions_departements.keys()))
     departement = random.choice(regions_departements[region])
 
+    # Générer une date de naissance et déterminer statut professionnel et situation familiale
+    date_naissance = faker.date_of_birth(minimum_age=18, maximum_age=90)
+    age = (datetime.now().date() - date_naissance).days // 365
+    statut_professionnel, situation_familiale = determiner_statut_et_situation(date_naissance)
+
     # Attribution du niveau d'études
-    niveau_etudes = random.choice(niveaux_etudes)
+    niveau_etudes = random.choice([
+        "Sans diplôme", "Brevet", "Baccalauréat", "BTS/DUT", "Licence", "Master", "Doctorat"
+    ])
     
     # Ajuster les probabilités de revenus en fonction du niveau d'études
-    probabilites_revenus_etudes = ajuster_probabilites_revenus_par_etudes(niveau_etudes)
+    def ajuster_probabilites_revenus_par_etudes(niveau_etudes):
+        etudes_revenus = {
+            "Sans diplôme": {"Très faible": 0.4, "Faible": 0.45, "Moyen": 0.1, "Élevé": 0.04, "Très élevé": 0.01},
+            "Brevet": {"Très faible": 0.3, "Faible": 0.5, "Moyen": 0.15, "Élevé": 0.04, "Très élevé": 0.01},
+            "Baccalauréat": {"Très faible": 0.2, "Faible": 0.4, "Moyen": 0.3, "Élevé": 0.08, "Très élevé": 0.02},
+            "BTS/DUT": {"Très faible": 0.1, "Faible": 0.3, "Moyen": 0.4, "Élevé": 0.15, "Très élevé": 0.05},
+            "Licence": {"Très faible": 0.05, "Faible": 0.2, "Moyen": 0.4, "Élevé": 0.3, "Très élevé": 0.05},
+            "Master": {"Très faible": 0.02, "Faible": 0.1, "Moyen": 0.3, "Élevé": 0.45, "Très élevé": 0.13},
+            "Doctorat": {"Très faible": 0.01, "Faible": 0.05, "Moyen": 0.25, "Élevé": 0.6, "Très élevé": 0.09}
+        }
+        return etudes_revenus.get(niveau_etudes)
 
-    # Attribution du niveau de revenu en fonction des probabilités ajustées
+    probabilites_revenus_etudes = ajuster_probabilites_revenus_par_etudes(niveau_etudes)
     niveau_revenus = random.choices(
-        list(probabilites_revenus_etudes.keys()), 
-        weights=list(probabilites_revenus_etudes.values()), 
+        list(probabilites_revenus_etudes.keys()),
+        weights=list(probabilites_revenus_etudes.values()),
         k=1
     )[0]
-    
+
     # Initialiser les allocations à 0 pour chaque allocataire
     allocations_attribuees = {allocation: 0 for allocation in allocations}
 
-    # Pour les autres (revenus très faibles, faibles et moyens), attribuer potentiellement des allocations
+    # Attribution des allocations avec conditions
     for allocation, prob in allocations.items():
         if random.random() < prob:
-            if allocation == "Allocation parent isolé (API)" and composition["adultes"] != 1: # Seulement pour les familles monoparentales
+            if allocation == "Allocation parent isolé (API)" and composition["adultes"] != 1:
                 continue
-            if allocation == "Allocation familiale (AF)" and composition["enfants"] < 2: # Seulement pour les familles avec au moins 2 enfants
+            if allocation == "Allocation familiale (AF)" and composition["enfants"] < 2:
                 continue
             if allocation in ["Revenu de solidarité active (RSA)", "Aide personnalisée au logement (APL)"] and niveau_revenus in ["Élevé", "Très élevé"]:
                 continue
+            if allocation == "Revenu de solidarité active (RSA)" and statut_professionnel in ["Retraité", "Étudiant"]:
+                continue
+            if allocation == "Allocation de solidarité spécifique (ASS)" and age < 50:
+                continue
+            if allocation == "Aide sociale à la vieillesse (ASV)" and age < 60:
+                continue
+            if allocation == "Prestation d'accueil du jeune enfant (PAJE)" and (composition["enfants"] == 0 or age > 40):
+                continue
+            if allocation == "Allocation adulte handicapé (AAH)" and not (18 <= age <= 59):
+                continue
+            if allocation == "Aide au logement social (ALS)" and niveau_revenus not in ["Très faible", "Faible"]:
+                continue
+            if allocation == "Allocation de solidarité spécifique (ASI)" and niveau_revenus != "Très faible":
+                continue
             allocations_attribuees[allocation] = 1
-
-    statut_professionnel = random.choice(statuts_professionnels)
-    categorie_sociale = assigner_categorie_sociale(niveau_revenus, statut_professionnel)
 
     donnees.append(
         {
             "ID_Allocataire": faker.uuid4(),
             "Nom": faker.last_name(),
             "Prénom": faker.first_name(),
-            "Date_Naissance": faker.date_of_birth(minimum_age=18, maximum_age=90),
+            "Date_Naissance": date_naissance,
+            "Age": age,
             "Région": region,
             "Département": departement,
-            "Situation_Familiale": random.choice(situations_familiales),
+            "Situation_Familiale": situation_familiale,
             "Statut_Professionnel": statut_professionnel,
             "Niveau_Etudes": niveau_etudes,
             "Niveau_Revenus": niveau_revenus,
-            "Categorie_Sociale": categorie_sociale,
             "Nombre_Adultes": composition["adultes"],
             "Nombre_Enfants": composition["enfants"],
             "Nombre_Total": composition["total"],

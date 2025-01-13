@@ -1,6 +1,6 @@
 """
 ===============================================================================
-Script : CAF_data_simulation.py
+Script : Allocations_data_simulation.py
 
 Description :
 Ce script génère un jeu de données fictif pour simuler des allocataires de la 

@@ -1,6 +1,6 @@
 """
 ===============================================================================
-Script : wind_turbine_data_simulation.py
+Script : DevEolien_data_simulation.py
 
 Description :
 Ce script génère un jeu de données fictif pour simuler des séries temporelles 
@@ -51,6 +51,8 @@ Exemple de commande pour exécuter le script :
 import pandas as pd
 import numpy as np
 import random
+
+random.seed(42)
 
 # Générer des facteurs de variation interannuelle pour température et vent
 def generate_annual_factors(start_year, end_year):

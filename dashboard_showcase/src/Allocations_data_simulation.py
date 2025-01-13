@@ -226,4 +226,4 @@ df = pd.DataFrame(donnees)
 # Exporter vers un fichier CSV
 df.to_csv("data/allocataires_caf_synthetiques.csv", index=False, sep=";", encoding="utf-8-sig")
 
-print("Jeu de données généré avec succès et sauvegardé dans 'allocataires_caf_synthetiques.csv'")
+print("Jeu de données généré avec succès et sauvegardé dans 'allocataires_data.csv'")

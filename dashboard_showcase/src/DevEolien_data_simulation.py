@@ -156,4 +156,4 @@ df = pd.DataFrame(data, columns=["Date", "Temperature", "WindSpeed", "Rent_EcoWi
 # Exporter vers un fichier CSV
 df.to_csv("data/wind_turbine_data.csv", index=False)
 
-print("Jeu de données généré avec succès et sauvegardé dans 'wind_turbine_data.csv'")
+print("Jeu de données généré avec succès et sauvegardé dans 'windturbine_data.csv'")
